@@ -7,8 +7,9 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
+import javax.inject.Inject
 
-class DbModelMapper {
+class DbModelMapper @Inject constructor() {
 
     fun mapDbModelToEntity(coinPriceInfoDbModel: CoinPriceInfoDbModel): CoinPriceInfo {
         return CoinPriceInfo(

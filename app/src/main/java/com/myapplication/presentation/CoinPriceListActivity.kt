@@ -6,18 +6,33 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.myapplication.CoinApp
 import com.myapplication.databinding.ActivityCoinPrceListBinding
 import com.myapplication.domain.CoinPriceInfo
 import com.myapplication.presentation.adapters.CoinInfoAdapter
+import javax.inject.Inject
 
 class CoinPriceListActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCoinPrceListBinding
-    private val viewModel by lazy { ViewModelProvider(this)[CoinViewModel::class.java] }
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+    private val viewModel by lazy {
+        ViewModelProvider(
+            this,
+            viewModelFactory
+        )[CoinViewModel::class.java]
+    }
+
+    private val component by lazy { (application as CoinApp).component }
+
+
     private lateinit var adapter: CoinInfoAdapter
     private lateinit var fromSymbol: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        component.inject(this)
         super.onCreate(savedInstanceState)
 
         binding = ActivityCoinPrceListBinding.inflate(layoutInflater)
