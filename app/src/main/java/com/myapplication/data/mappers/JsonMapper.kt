@@ -3,8 +3,9 @@ package com.myapplication.data.mappers
 import com.google.gson.Gson
 import com.myapplication.data.DTO.CoinPriceInfoDto
 import com.myapplication.data.DTO.CoinPriceInfoJsonObjectDto
+import javax.inject.Inject
 
-class JsonMapper {
+class JsonMapper @Inject constructor() {
     fun parseCoinPriceInfoList(jsonObject: CoinPriceInfoJsonObjectDto): List<CoinPriceInfoDto> {
         val result = mutableListOf<CoinPriceInfoDto>()
         val jsonObject = jsonObject.coinPriceInfoJsonObject ?: return result

@@ -2,8 +2,9 @@ package com.myapplication.data.mappers
 
 import com.myapplication.data.DTO.CoinPriceInfoDto
 import com.myapplication.data.database.CoinPriceInfoDbModel
+import javax.inject.Inject
 
-class DtoMapper {
+class DtoMapper @Inject constructor() {
 
     fun mapDtoToDbModel(coinPriceInfoDto: CoinPriceInfoDto): CoinPriceInfoDbModel {
         return CoinPriceInfoDbModel(

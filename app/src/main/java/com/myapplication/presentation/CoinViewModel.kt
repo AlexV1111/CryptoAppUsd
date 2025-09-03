@@ -1,21 +1,18 @@
 package com.myapplication.presentation
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import com.myapplication.data.database.CoinPriceInfoRepositoryImpl
+import androidx.lifecycle.ViewModel
 import com.myapplication.domain.CoinPriceInfo
 import com.myapplication.domain.usecase.GetPriceInfoAboutCoinUseCase
 import com.myapplication.domain.usecase.GetPriceListUseCase
 import com.myapplication.domain.usecase.LoadDataUseCase
+import javax.inject.Inject
 
-class CoinViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val repository = CoinPriceInfoRepositoryImpl(application)
-
-    private val getPriceListUseCase = GetPriceListUseCase(repository)
-    private val getPriceInfoAboutCoinUseCase = GetPriceInfoAboutCoinUseCase(repository)
-    private val loadDataUseCase = LoadDataUseCase(repository)
+class CoinViewModel @Inject constructor(
+    private val getPriceListUseCase: GetPriceListUseCase,
+    private val getPriceInfoAboutCoinUseCase: GetPriceInfoAboutCoinUseCase,
+    private val loadDataUseCase: LoadDataUseCase
+) : ViewModel() {
 
     init {
         loadDataUseCase.loadDataUseCase()

@@ -9,14 +9,15 @@ import com.myapplication.data.mappers.DbModelMapper
 import com.myapplication.data.worker.SyncWorker
 import com.myapplication.domain.CoinPriceInfo
 import com.myapplication.domain.CoinPriceInfoRepository
+import javax.inject.Inject
 
-class CoinPriceInfoRepositoryImpl(application: Application) : CoinPriceInfoRepository {
-
-    private val coinPriceInfoDao = AppDatabase.getInstance(application).coinPriceInfoDao()
+class CoinPriceInfoRepositoryImpl @Inject constructor(
+    private val application: Application,
+    private val coinPriceInfoDao: CoinPriceInfoDao,
+    private val dbModelMapper: DbModelMapper
+) : CoinPriceInfoRepository {
 
     private val workManager = WorkManager.getInstance(application)
-
-    private val dbModelMapper = DbModelMapper()
 
     override fun getPriceList(): LiveData<List<CoinPriceInfo>> {
         return MediatorLiveData<List<CoinPriceInfo>>().apply {
